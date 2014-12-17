@@ -23,7 +23,7 @@ public:
 	{
 		return listaClientes_;
 	}
-	
+
 	void setLista (std::list<Cliente>& listaClientes)
 	{
 		listaClientes_ = listaClientes;
@@ -39,8 +39,10 @@ public:
 
 	void imprimir();
 
+	bool orden(Cliente c1, Cliente c2);
+
 	void ordenar();
 };
 
 #endif /* AGENDA_H_ */
-	
+
