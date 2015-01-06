@@ -10,6 +10,7 @@
 
 #include <string>
 #include <list>
+#include <fstream>
 
 struct Direccion
 {
@@ -22,7 +23,7 @@ struct Direccion
 
 struct RedSocial
 {
-	std :: string nombreRed_;
+	std :: string nombreRed;
 	std :: string url;
 };
 
