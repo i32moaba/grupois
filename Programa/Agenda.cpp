@@ -5,18 +5,20 @@
  *      Author: i32roraj
  */
 
-#include "Cliente.h"
 #include "Agenda.h"
 #include <iostream>
 #include <string>
 #include <list>
+using namespace std;
 
-Agenda::Agenda() {
+Agenda::Agenda(GestorDBInterfaz* g)
+{
 	// TODO Auto-generated constructor stub
-
+	_gestor = g;
 }
 
-Agenda::~Agenda() {
+Agenda::~Agenda()
+{
 	// TODO Auto-generated destructor stub
 }
 
@@ -31,7 +33,7 @@ bool Agenda::buscarCliente (std::string& apellidos)
 		{
 			if ((*it).getApellidos() == apellidos)
 			{
-				std::cout << "\n\nCliente encontrado: DNI: " << (*it).getDni() << ",\n\tNombre completo: " << (*it).getApellidos() << ", " << (*it).getNombre();
+				std::cout << "\n\nDNI: " << (*it).getDni() << ",\n\tNombre completo: " << (*it).getApellidos() << ", " << (*it).getNombre();
 				control = true;
 			}
 		}
@@ -53,6 +55,7 @@ bool Agenda::modificarCliente (std::string& apellidos)
 	{
 		if ((*it).getApellidos() == apellidos)
 		{
+			control = true;
 			//CAMBIO DE DNI
 			std::cout << "\n\nCliente encontrado.\n\nDNI actual: " << (*it).getDni() << " (para no modificarlo introduzca un guión -).\n\tIntroduzca - o nuevo DNI: ";
 			std::getline (std::cin, aux);
@@ -86,14 +89,21 @@ bool Agenda::modificarCliente (std::string& apellidos)
 			//CAMBIO DE DIRECCIONES
 			//CAMBIO DE REDES SOCIALES
 			//CAMBIO DE ANOTACIONES
+			std::cout << "\n\tIntroduzca - o nuevo nombre: ";
+			std::getline (std::cin, aux);
+			if (aux != "-")
+			{
+				(*it).setAnotaciones(aux);
+			}
 			//CAMBIO DE FAVORITO
 		}
 	}
+	return (control);
 }
 
 bool Agenda::borrarCliente(std::string& apellidos)
 {
-	bool control;
+	bool control = false;
 	if (!listaClientes_.empty())
 	{
 		for (std::list<Cliente>::iterator it=listaClientes_.begin(); it != listaClientes_.end(); it++)
