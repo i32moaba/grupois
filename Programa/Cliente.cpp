@@ -7,9 +7,15 @@
 
 #include "Cliente.h"
 
-Cliente::Cliente() {
-	// TODO Auto-generated constructor stub
-
+Cliente::Cliente(std::string DNI, std::string n, std::string ap, long t, std::list<Direccion> d, std::string an, std::list<RedSocial> rs, long u, bool f) {
+	dni_ = DNI;
+	nombre_ = n;
+	apellidos_ = ap_;
+	telefono_ = t;
+	direcciones_ = d;
+	anotaciones_ = an;
+	redesSociales_ = rs;
+	favorito_ = f;
 }
 
 Cliente::~Cliente() {

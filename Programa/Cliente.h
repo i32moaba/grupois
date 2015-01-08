@@ -37,7 +37,7 @@ private:
 		std :: string anotaciones_;
 		std :: list <RedSocial> redesSociales_;
 		long numUsos_;
-		bool favorito;
+		bool favorito_;
 public:
 	Cliente();
 	virtual ~Cliente();
@@ -84,12 +84,12 @@ public:
 
 	bool isFavorito() const
 	{
-		return favorito;
+		return favorito_;
 	}
 
 	void setFavorito(bool favorito)
 	{
-		this->favorito = favorito;
+		favorito_ = favorito;
 	}
 
 	const std::string& getNombre() const
