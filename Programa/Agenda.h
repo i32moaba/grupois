@@ -26,7 +26,7 @@ public:
 		return listaClientes_;
 	}
 
-	void setLista (std::list<Cliente>& listaClientes)
+	void setLista (std::list<Cliente> listaClientes)
 	{
 		listaClientes_ = listaClientes;
 	}

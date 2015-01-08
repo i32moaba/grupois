@@ -20,10 +20,11 @@ public:
 	const std::string& getNombreFichero() const {
 		return nombreFichero_;
 	}
-
 	void setNombreFichero(const std::string& nombreFichero) {
 		nombreFichero_ = nombreFichero;
 	}
+	void salvar (std::list <Cliente> clientes);
+	std::list <Cliente> restaurar ();
 };
 
 #endif /* GESTORDBFICHERO_H_ */

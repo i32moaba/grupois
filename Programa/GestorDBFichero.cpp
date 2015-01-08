@@ -18,9 +18,17 @@ GestorDBFichero::~GestorDBFichero() {
 	// TODO Auto-generated destructor stub
 }
 
-void salvar ()
+void salvar (list <Cliente> clientes)
 {
-
+	GestorDBFichero gf;
+	fstream f;
+	string nombreF = gf.getNombreFichero() + ".txt";
+	list <Cliente> :: iterator i; //Declaramos el iterador que vamos a utilizar como puntero dentro de la lista
+	for (i=clientes.begin(); i!=clientes.end(); i++)
+	{
+		f << i-> getApellidos() << "," << i-> getNombre() << "," << i-> getDni() << "," << "," << i-> getTelefono() << "," << i-> getDireccionesAsString() << "," << i-> getAnotaciones() << "," << i-> getRedesSocialesAsString() << "," << i-> getNumUsos() << "," << i-> isFavorito() << "\n";
+	}
+	f.close();
 }
 
 std :: list<Cliente> restaurar ()
@@ -47,6 +55,9 @@ std :: list<Cliente> restaurar ()
 			getline (f, nombre, ',');
 			getline (f, dni, ',');
 			getline (f, telefono, ',');
+			getline (f, direcciones, ',');
+			getline (f, anotaciones, ',');
+			getline (f, redesSociales, ',');
 			getline (f, numUsos, ',');
 			getline (f, favorito, ',');
 			c.setApellidos(apellidos);

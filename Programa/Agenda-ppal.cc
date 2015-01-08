@@ -8,9 +8,11 @@
 #include "Cliente.h"
 #include "Agenda.h"
 #include "GestorDBInterfaz.h"
+#include "GestorDBFichero.h"
 #include <iostream>
 #include <string>
 #include <list>
+using namespace std;
 
 int menu ()
 {
@@ -36,7 +38,7 @@ int main ()
 	int instruccion;
 	GestorDBFichero* g = new GestorDBFichero();
 	Agenda a = Agenda(g);
-	Cliente c;
+	Cliente c ();
 				std::string dni;
 				std::string nombre;
 				std :: string apellidos;
@@ -56,19 +58,19 @@ int main ()
 		case 0:
 		{
 			instruccion = -1;
-			std::cout << "\n\tGracias por utilizar el programa de gestión de agenda.\n\n"
+			std::cout << "\n\tGracias por utilizar el programa de gestión de agenda.\n\n";
 			break;
 		}
 		case 1:
 		{
 			a.imprimir();
-			std::cout << "\n\tFinalizada la impresión de la agenda de contactos.\n"
+			std::cout << "\n\tFinalizada la impresión de la agenda de contactos.\n";
 			break;
 		}
 		case 2:
 		{
 			a.ordenar();
-			std::cout << "\n\tLista ordenada por orden alfabético de apellidos.\n"
+			std::cout << "\n\tLista ordenada por orden alfabético de apellidos.\n";
 			break;
 		}
 		case 3:
@@ -164,7 +166,7 @@ int main ()
 		}
 		case 7:
 		{
-			g.salvar(a.getLista());
+			g->salvar(a.getLista());
 			std::cout<<"\nBase de datos guardada satisfactoriamente."<<std::endl;
 			break;
 		}
@@ -173,7 +175,7 @@ int main ()
 			int lenguaje;
 			std::cout<<"\nSeleccione como desea guardar su base de datos: ";
 			std::cin>>lenguaje;
-			a.setLista(g.restaurar());
+			a.setLista(g->restaurar());
 			std::cout<<"\nBase de datos restaurada satisfactoriamente."<<std::endl;
 			break;
 		}

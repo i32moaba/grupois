@@ -13,7 +13,6 @@ using namespace std;
 
 Agenda::Agenda(GestorDBInterfaz* g)
 {
-	// TODO Auto-generated constructor stub
 	_gestor = g;
 }
 
@@ -34,6 +33,7 @@ bool Agenda::buscarCliente (std::string& apellidos)
 			if ((*it).getApellidos() == apellidos)
 			{
 				std::cout << "\n\nDNI: " << (*it).getDni() << ",\n\tNombre completo: " << (*it).getApellidos() << ", " << (*it).getNombre();
+				(*it).usado();
 				control = true;
 			}
 		}
@@ -46,9 +46,11 @@ void Agenda::insertarCliente (Cliente c)
 	listaClientes_.push_back(c);
 }
 
+
 bool Agenda::modificarCliente (std::string& apellidos)
 {
 	bool control = false;
+	bool fav;
 	std::string aux;
 	long auxN;
 	for (std::list<Cliente>::iterator it=listaClientes_.begin(); it != listaClientes_.end(); it++)
@@ -87,15 +89,72 @@ bool Agenda::modificarCliente (std::string& apellidos)
 			}
 
 			//CAMBIO DE DIRECCIONES
+			std::cout << "\n\nDirecciones actuales: ";
+			for (std::list<Direccion>::iterator ite=(*it).getDirecciones().begin(); ite != (*it).getDirecciones().end(); ite++)
+			{
+				cout << "\n" << (*ite).tipo_calle << " " << (*ite).calle << ", " << (*ite).numero << ", " << (*ite).cp << ", " << (*ite).ciudad << ".";
+				std::cout << "\n\tIntroduzca - si no quiere cambiar la dirección, o el nombre de la nueva calle: ";
+				std::getline (std::cin, aux);
+				if (aux != "-")
+				{
+					(*ite).calle = aux;
+					std::cout << "\n\tIntroduzca el número: ";
+					std::cin >> (*ite).numero;
+					std::cout << "\n\tIntroduzca el código postal: ";
+					std::cin >> (*ite).cp;
+					std::cout << "\n\tIntroduzca la ciudad: ";
+					std::getline (std::cin, (*ite).ciudad);
+					std::cout << "\n\tIntroduzca el tipo de calle: ";
+					std::getline (std::cin, (*ite).tipo_calle);
+				}
+				std::cout << "\n";
+			}
+
+
 			//CAMBIO DE REDES SOCIALES
+			std::cout << "\n\nRedes sociales actuales: ";
+			for (std::list<RedSocial>::iterator ito=(*it).getRedesSociales().begin(); ito != (*it).getRedesSociales().end(); ito++)
+			{
+				cout << "\n" << (*ito).nombreRed << ": " << (*ito).url;
+				std::cout << "\n\tIntroduzca - si no quiere cambiar la cuenta, o el nombre de la nueva red social: ";
+				std::getline (std::cin, aux);
+				if (aux != "-")
+				{
+					(*ito).nombreRed = aux;
+					std::cout << "\n\tIntroduzca la URL de la cuenta del cliente en esa red social: ";
+					std::getline (std::cin, (*ito).url);
+				}
+				std::cout << "\n";
+			}
+
 			//CAMBIO DE ANOTACIONES
-			std::cout << "\n\tIntroduzca - o nuevo nombre: ";
+			std::cout << "\n\tAnotaciones actuales:\n" << (*it).getAnotaciones << "\n\tIntroduzca - o las nuevas anotaciones: ";
 			std::getline (std::cin, aux);
 			if (aux != "-")
 			{
 				(*it).setAnotaciones(aux);
 			}
 			//CAMBIO DE FAVORITO
+			std::cout << "\n\tEstado de favorito actual: ";
+			if ((*it).isFavorito())
+			{
+				std::cout << "FAVORITO.";
+			}
+				else
+			{
+				std::cout << "NO FAVORITO.";
+			}
+			std :: cout << "\n\tIntroduzca F para que sea favorito, N para que sea no favorito o - para que se quede como está: ";
+			if (aux == "F")
+			{
+				fav = true;
+				(*it).setFavorito (fav);
+			}
+			if (aux == "N")
+			{
+				fav = false;
+				(*it).setFavorito (fav);
+			}
 		}
 	}
 	return (control);
