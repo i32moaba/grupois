@@ -124,6 +124,10 @@ public:
 	void setTelefono(long telefono) {
 		telefono_ = telefono;
 	}
+
+	void usado() {
+		numUsos_++;
+	}
 };
 
 #endif /* CLIENTE_H_ */

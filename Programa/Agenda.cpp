@@ -34,6 +34,7 @@ bool Agenda::buscarCliente (std::string& apellidos)
 			if ((*it).getApellidos() == apellidos)
 			{
 				std::cout << "\n\nDNI: " << (*it).getDni() << ",\n\tNombre completo: " << (*it).getApellidos() << ", " << (*it).getNombre();
+				(*it).usado();
 				control = true;
 			}
 		}
