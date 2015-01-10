@@ -90,6 +90,7 @@ int main ()
 			c.setTelefono(telefono);
 			std::cout << "¿Cuántas direcciones desea introducir?: ";
 			std::cin>> nDirecciones;
+			getchar ();
 			for (int i=0; i<nDirecciones; i++)
 			{
 				std::cout << "Direccion nº:"<<i<<endl<< "\tNombre de la calle: "<<endl;
@@ -175,7 +176,8 @@ int main ()
 			int lenguaje;
 			std::cout<<"\nSeleccione como desea guardar su base de datos: ";
 			std::cin>>lenguaje;
-			a.setLista(g->restaurar());
+			g->restaurar();
+			a.setLista(g->getClientes());
 			std::cout<<"\nBase de datos restaurada satisfactoriamente."<<std::endl;
 			break;
 		}

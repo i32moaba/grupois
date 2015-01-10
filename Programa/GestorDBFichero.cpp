@@ -18,7 +18,7 @@ GestorDBFichero::~GestorDBFichero() {
 	// TODO Auto-generated destructor stub
 }
 
-void salvar (list <Cliente> clientes)
+void GestorDBFichero :: salvar (list <Cliente> clientes)
 {
 	GestorDBFichero gf;
 	fstream f;
@@ -31,7 +31,7 @@ void salvar (list <Cliente> clientes)
 	f.close();
 }
 
-std :: list<Cliente> restaurar ()
+void GestorDBFichero :: restaurar ()
 {
 	GestorDBFichero gf;
 	list <Cliente> clientes;
@@ -65,9 +65,8 @@ std :: list<Cliente> restaurar ()
 			c.setNumUsos((long)numUsos.c_str());
 			c.setFavorito((bool)favorito.c_str());
 			cout <<endl<<"Introducidas en la lista las variables leidas del fichero: "<<apellidos<<", "<<nombre<<", "<<dni<<", "<<telefono<<", "<<anotaciones<<", "<<numUsos<< ", "<<favorito<< ", ";//INCOMPLETO
-			clientes.push_back(c);
+			gf.setClientes(c);
 		}
 	}
 	f.close();
-	return (clientes);
 }

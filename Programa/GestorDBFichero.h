@@ -13,6 +13,7 @@
 class GestorDBFichero: public GestorDBInterfaz {
 private:
 	std::string nombreFichero_;
+	std::list <Cliente> clientes_;
 public:
 	GestorDBFichero();
 	virtual ~GestorDBFichero();
@@ -23,8 +24,17 @@ public:
 	void setNombreFichero(const std::string& nombreFichero) {
 		nombreFichero_ = nombreFichero;
 	}
-	virtual void salvar (std::list <Cliente> clientes);
-	virtual std::list <Cliente> restaurar ();
+	const std::list<Cliente>& getClientes() const {
+			return clientes_;
+	}
+	void setClientes(Cliente c)
+	{
+		clientes_.push_back(c);
+	}
+	void salvar (std::list <Cliente> clientes);
+	void restaurar ();
+
+
 };
 
 #endif /* GESTORDBFICHERO_H_ */
