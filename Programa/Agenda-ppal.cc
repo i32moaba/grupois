@@ -85,35 +85,39 @@ int main ()
 			std::cout << "DNI: ";
 			std::cin>> dni;
 			c.setDni(dni);
+			getchar ();
 			std::cout << "Telefono: ";
 			std::cin>> telefono;
 			c.setTelefono(telefono);
+			getchar();
 			std::cout << "¿Cuántas direcciones desea introducir?: ";
 			std::cin>> nDirecciones;
 			getchar ();
 			for (int i=0; i<nDirecciones; i++)
 			{
 				std::cout << "Direccion nº:"<<i<<endl<< "\tNombre de la calle: "<<endl;
-				std::cin>> d.calle;
+				std::getline (std::cin, d.calle);
 				std::cout << "Numero: ";
 				std::cin>> d.numero;
 				std::cout << "Codigo Postal: ";
 				std::cin>> d.cp;
+				getchar ();
 				std::cout << "Ciudad: ";
-				std::cin>> d.ciudad;
+				std::getline (std::cin, d.ciudad);
 				std::cout << "Tipo de calle: ";
-				std::cin>> d.tipo_calle;
+				std::getline (std::cin, d.tipo_calle);
 				direcciones.push_back(d);
 			}
 			c.setDirecciones(direcciones);
 			std::cout << "¿Cuántas redes sociales desea introducir?: ";
 			std::cin>> nRedes;
+			getchar ();
 			for (int i=0; i<nRedes; i++)
 			{
 				std::cout << "Red Social nº:"<<i<<endl<< "\tNombre de la red social: "<<endl;
-				std::cin>> r.nombreRed;
+				std::getline (std::cin, r.nombreRed);
 				std::cout << "URL de la red: ";
-				std::cin>> r.url;
+				std::getline (std::cin, r.url);
 				redesSociales.push_back(r);
 			}
 			c.setRedesSociales(redesSociales);
