@@ -4,7 +4,6 @@
  *  Created on: 04/12/2014
  *      Author: i32roraj
  */
-
 #include "Cliente.h"
 #include "Agenda.h"
 #include "GestorDBInterfaz.h"
@@ -75,50 +74,65 @@ int main ()
 		}
 		case 3:
 		{
+			getchar ();
 			std::cout << "\n\tIntroduzca los datos correspondientes para el cliente a insertar (el campo de apellidos es obligatorio).\n"
 					"Apellidos: ";
-			std::cin>> apellidos;
+			std::getline(std::cin, apellidos);
 			c.setApellidos(apellidos);
 			std::cout << "Nombre: ";
-			std::cin>> nombre;
+			std::getline(std::cin, nombre);
 			c.setNombre(nombre);
 			std::cout << "DNI: ";
-			std::cin>> dni;
+			std::getline(std::cin, dni);
 			c.setDni(dni);
 			std::cout << "Telefono: ";
 			std::cin>> telefono;
 			c.setTelefono(telefono);
+			getchar();
 			std::cout << "¿Cuántas direcciones desea introducir?: ";
 			std::cin>> nDirecciones;
 			getchar ();
 			for (int i=0; i<nDirecciones; i++)
 			{
-				std::cout << "Direccion nº:"<<i<<endl<< "\tNombre de la calle: "<<endl;
-				std::cin>> d.calle;
+				std::cout << "Direccion nº:"<<i+1<<endl<< "\tNombre de la calle: "<<endl;
+				std::getline (std::cin, d.calle);
 				std::cout << "Numero: ";
 				std::cin>> d.numero;
 				std::cout << "Codigo Postal: ";
 				std::cin>> d.cp;
+				getchar ();
 				std::cout << "Ciudad: ";
-				std::cin>> d.ciudad;
+				std::getline (std::cin, d.ciudad);
 				std::cout << "Tipo de calle: ";
-				std::cin>> d.tipo_calle;
+				std::getline (std::cin, d.tipo_calle);
 				direcciones.push_back(d);
 			}
 			c.setDirecciones(direcciones);
 			std::cout << "¿Cuántas redes sociales desea introducir?: ";
 			std::cin>> nRedes;
+			getchar ();
 			for (int i=0; i<nRedes; i++)
 			{
-				std::cout << "Red Social nº:"<<i<<endl<< "\tNombre de la red social: "<<endl;
-				std::cin>> r.nombreRed;
+				std::cout << "Red Social nº:"<<i+1<<endl<< "\tNombre de la red social: "<<endl;
+				std::getline (std::cin, r.nombreRed);
 				std::cout << "URL de la red: ";
-				std::cin>> r.url;
+				std::getline (std::cin, r.url);
 				redesSociales.push_back(r);
 			}
 			c.setRedesSociales(redesSociales);
+			std::cout << "¿Quiere hacer a este contacto favorito? Escriba 0 (no) o 1 (sí): ";
+			int opc;
+			std::cin >> opc;
+			if (opc)
+			{
+				c.setFavorito(true);
+			}
+			else
+			{
+				c.setFavorito(false);
+			}
 			std::cout << "¿Quisiera hacer alguna anotacion acerca del cliente actual?: ";
-			std::cin>> anotaciones;
+			std::getline(std::cin, anotaciones);
 			c.setAnotaciones(anotaciones);
 			a.insertarCliente (c);
 			break;
@@ -133,7 +147,6 @@ int main ()
 			}
 			else
 			{
-				std::cout<<"Cliente encontrado."<<std::endl;
 			}
 			break;
 		}
@@ -173,9 +186,6 @@ int main ()
 		}
 		case 8:
 		{
-			int lenguaje;
-			std::cout<<"\nSeleccione como desea guardar su base de datos: ";
-			std::cin>>lenguaje;
 			g->restaurar();
 			a.setLista(g->getClientes());
 			std::cout<<"\nBase de datos restaurada satisfactoriamente."<<std::endl;
@@ -190,4 +200,3 @@ int main ()
 	}
 	while (instruccion != -1);
 }
-
