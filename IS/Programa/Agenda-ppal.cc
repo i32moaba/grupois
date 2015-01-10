@@ -77,13 +77,13 @@ int main ()
 		{
 			std::cout << "\n\tIntroduzca los datos correspondientes para el cliente a insertar (el campo de apellidos es obligatorio).\n"
 					"Apellidos: ";
-			std::cin>> apellidos;
+			std::getline(std::cin, apellidos);
 			c.setApellidos(apellidos);
 			std::cout << "Nombre: ";
-			std::cin>> nombre;
+			std::getline(std::cin, nombre);
 			c.setNombre(nombre);
 			std::cout << "DNI: ";
-			std::cin>> dni;
+			std::getline(std::cin, dni);
 			c.setDni(dni);
 			getchar ();
 			std::cout << "Telefono: ";
@@ -95,7 +95,7 @@ int main ()
 			getchar ();
 			for (int i=0; i<nDirecciones; i++)
 			{
-				std::cout << "Direccion nº:"<<i<<endl<< "\tNombre de la calle: "<<endl;
+				std::cout << "Direccion nº:"<<i+1<<endl<< "\tNombre de la calle: "<<endl;
 				std::getline (std::cin, d.calle);
 				std::cout << "Numero: ";
 				std::cin>> d.numero;
@@ -114,15 +114,26 @@ int main ()
 			getchar ();
 			for (int i=0; i<nRedes; i++)
 			{
-				std::cout << "Red Social nº:"<<i<<endl<< "\tNombre de la red social: "<<endl;
+				std::cout << "Red Social nº:"<<i+1<<endl<< "\tNombre de la red social: "<<endl;
 				std::getline (std::cin, r.nombreRed);
 				std::cout << "URL de la red: ";
 				std::getline (std::cin, r.url);
 				redesSociales.push_back(r);
 			}
 			c.setRedesSociales(redesSociales);
+			std::cout << "¿Quiere hacer a este contacto favorito? Escriba 0 (no) o 1 (sí): ";
+			int opc;
+			std::cin >> opc;
+			if (opc)
+			{
+				c.setFavorito(true);
+			}
+			else
+			{
+				c.setFavorito(false);
+			}
 			std::cout << "¿Quisiera hacer alguna anotacion acerca del cliente actual?: ";
-			std::cin>> anotaciones;
+			std::getline(std::cin, anotaciones);
 			c.setAnotaciones(anotaciones);
 			a.insertarCliente (c);
 			break;
