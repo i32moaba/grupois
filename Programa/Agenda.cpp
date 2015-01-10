@@ -88,7 +88,8 @@ bool Agenda::modificarCliente (std::string& apellidos)
 
 			//CAMBIO DE DIRECCIONES
 			std::cout << "\n\nDirecciones actuales: ";
-			for (std::list<Direccion>::iterator ite=(*it).getDirecciones().begin(); ite != (*it).getDirecciones().end(); ite++)
+			std::list<Direccion> auxd = (*it).getDirecciones()	
+			for (std::list<Direccion>::iterator ite = auxd.begin(); ite != auxd.end(); ite++)
 			{
 				cout << "\n" << (*ite).tipo_calle << " " << (*ite).calle << ", " << (*ite).numero << ", " << (*ite).cp << ", " << (*ite).ciudad << ".";
 				std::cout << "\n\tIntroduzca - si no quiere cambiar la dirección, o el nombre de la nueva calle: ";
@@ -111,7 +112,8 @@ bool Agenda::modificarCliente (std::string& apellidos)
 
 			//CAMBIO DE REDES SOCIALES
 			std::cout << "\n\nRedes sociales actuales: ";
-			for (std::list<RedSocial>::iterator ito=(*it).getRedesSociales().begin(); ito != (*it).getRedesSociales().end(); ito++)
+			std::list<RedSocial> auxrs = (*it).getRedesSociales()	
+			for (std::list<RedSocial>::iterator ito = auxrs.begin(); ito != auxrs.end(); ito++)
 			{
 				cout << "\n" << (*ito).nombreRed << ": " << (*ito).url;
 				std::cout << "\n\tIntroduzca - si no quiere cambiar la cuenta, o el nombre de la nueva red social: ";
@@ -209,6 +211,6 @@ bool Agenda::orden(Cliente c1, Cliente c2)
 }
 void Agenda::ordenar()
 {
-	listaClientes_.sort(orden());
+	listaClientes_.sort(orden);
 	std::cout << "\nLista ordenada por apellidos.\n";
 }
