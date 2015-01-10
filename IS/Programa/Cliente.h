@@ -10,6 +10,9 @@
 
 #include <string>
 #include <list>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 struct Direccion
 {
@@ -22,7 +25,7 @@ struct Direccion
 
 struct RedSocial
 {
-	std :: string nombreRed_;
+	std :: string nombreRed;
 	std :: string url;
 };
 
@@ -36,7 +39,7 @@ private:
 		std :: string anotaciones_;
 		std :: list <RedSocial> redesSociales_;
 		long numUsos_;
-		bool favorito;
+		bool favorito_;
 public:
 	Cliente();
 	virtual ~Cliente();
@@ -81,16 +84,6 @@ public:
 		dni_ = dni;
 	}
 
-	bool isFavorito() const
-	{
-		return favorito;
-	}
-
-	void setFavorito(bool favorito)
-	{
-		this->favorito = favorito;
-	}
-
 	const std::string& getNombre() const
 	{
 		return nombre_;
@@ -123,6 +116,19 @@ public:
 	void setTelefono(long telefono) {
 		telefono_ = telefono;
 	}
+
+	bool isFavorito() const {
+		return favorito_;
+	}
+
+	void setFavorito(bool favorito) {
+		favorito_ = favorito;
+	}
+	void usado() {
+			numUsos_++;
+		}
+	std :: string getDireccionesAsString (std::list<Direccion> direcciones);
+	std :: string getRedesSocialesAsString (std::list<RedSocial> redesSociales);
 };
 
 #endif /* CLIENTE_H_ */
