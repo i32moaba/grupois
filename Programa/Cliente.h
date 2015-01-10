@@ -11,6 +11,8 @@
 #include <string>
 #include <list>
 #include <fstream>
+#include <iostream>
+#include <sstream>
 
 struct Direccion
 {
@@ -39,7 +41,7 @@ private:
 		long numUsos_;
 		bool favorito_;
 public:
-	Cliente(std :: string DNI, std::string n, std::string ap, long t, std::list<Direccion> d, std::string an, std::list<RedSocial> rs, long u, bool f);
+	Cliente();
 	virtual ~Cliente();
 
 	const std::string& getAnotaciones() const

@@ -11,8 +11,8 @@
 class GestorDBInterfaz
 {
 public:
-	GestorDBInterfaz() {};
-	virtual ~GestorDBInterfaz()  {};
+	GestorDBInterfaz();
+	virtual ~GestorDBInterfaz();
 	virtual void salvar (std::list <Cliente> clientes);
 	virtual std::list <Cliente> restaurar ();
 };

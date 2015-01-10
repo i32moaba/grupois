@@ -7,11 +7,11 @@
 
 #include "GestorDBInterfaz.h"
 
-GestorDBInterfaz::GestorDBInterfaz() {
-	// TODO Auto-generated constructor stub
+GestorDBInterfaz::GestorDBInterfaz()
+{
 
 }
 
-GestorDBInterfaz::~GestorDBInterfaz() {
-	// TODO Auto-generated destructor stub
+GestorDBInterfaz::~GestorDBInterfaz()
+{
 }

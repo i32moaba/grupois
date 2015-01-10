@@ -41,8 +41,6 @@ public:
 
 	void imprimir();
 
-	bool orden(Cliente c1, Cliente c2);
-
 	void ordenar();
 };
 

@@ -38,7 +38,7 @@ int main ()
 	int instruccion;
 	GestorDBFichero* g = new GestorDBFichero();
 	Agenda a = Agenda(g);
-	Cliente c ();
+	Cliente c;
 				std::string dni;
 				std::string nombre;
 				std :: string apellidos;
@@ -92,7 +92,7 @@ int main ()
 			std::cin>> nDirecciones;
 			for (int i=0; i<nDirecciones; i++)
 			{
-				std::cout << "Direccion nº:"<<i.<<endl<< "\tNombre de la calle: "<<endl;
+				std::cout << "Direccion nº:"<<i<<endl<< "\tNombre de la calle: "<<endl;
 				std::cin>> d.calle;
 				std::cout << "Numero: ";
 				std::cin>> d.numero;
@@ -109,7 +109,7 @@ int main ()
 			std::cin>> nRedes;
 			for (int i=0; i<nRedes; i++)
 			{
-				std::cout << "Red Social nº:"<<i.<<endl<< "\tNombre de la red social: "<<endl;
+				std::cout << "Red Social nº:"<<i<<endl<< "\tNombre de la red social: "<<endl;
 				std::cin>> r.nombreRed;
 				std::cout << "URL de la red: ";
 				std::cin>> r.url;
@@ -187,5 +187,5 @@ int main ()
 		}
 	}
 	while (instruccion != -1);
-	}
 }
+

@@ -21,8 +21,6 @@ Agenda::~Agenda()
 	// TODO Auto-generated destructor stub
 }
 
-virtual ~Agenda();
-
 bool Agenda::buscarCliente (std::string& apellidos)
 {
 	bool control = false;
@@ -90,7 +88,8 @@ bool Agenda::modificarCliente (std::string& apellidos)
 
 			//CAMBIO DE DIRECCIONES
 			std::cout << "\n\nDirecciones actuales: ";
-			for (std::list<Direccion>::iterator ite=(*it).getDirecciones().begin(); ite != (*it).getDirecciones().end(); ite++)
+			std::list<Direccion> auxd = (*it).getDirecciones();
+			for (std::list<Direccion>::iterator ite = auxd.begin(); ite != auxd.end(); ite++)
 			{
 				cout << "\n" << (*ite).tipo_calle << " " << (*ite).calle << ", " << (*ite).numero << ", " << (*ite).cp << ", " << (*ite).ciudad << ".";
 				std::cout << "\n\tIntroduzca - si no quiere cambiar la dirección, o el nombre de la nueva calle: ";
@@ -110,10 +109,10 @@ bool Agenda::modificarCliente (std::string& apellidos)
 				std::cout << "\n";
 			}
 
-
 			//CAMBIO DE REDES SOCIALES
 			std::cout << "\n\nRedes sociales actuales: ";
-			for (std::list<RedSocial>::iterator ito=(*it).getRedesSociales().begin(); ito != (*it).getRedesSociales().end(); ito++)
+			std::list<RedSocial> auxrs = (*it).getRedesSociales();
+			for (std::list<RedSocial>::iterator ito = auxrs.begin(); ito != auxrs.end(); ito++)
 			{
 				cout << "\n" << (*ito).nombreRed << ": " << (*ito).url;
 				std::cout << "\n\tIntroduzca - si no quiere cambiar la cuenta, o el nombre de la nueva red social: ";
@@ -126,9 +125,8 @@ bool Agenda::modificarCliente (std::string& apellidos)
 				}
 				std::cout << "\n";
 			}
-
 			//CAMBIO DE ANOTACIONES
-			std::cout << "\n\tAnotaciones actuales:\n" << (*it).getAnotaciones << "\n\tIntroduzca - o las nuevas anotaciones: ";
+			cout << "\n\tAnotaciones actuales:\n" << (*it).getAnotaciones () << "\n\tIntroduzca - o las nuevas anotaciones: ";
 			std::getline (std::cin, aux);
 			if (aux != "-")
 			{
@@ -155,8 +153,8 @@ bool Agenda::modificarCliente (std::string& apellidos)
 				fav = false;
 				(*it).setFavorito (fav);
 			}
+			}
 		}
-	}
 	return (control);
 }
 
@@ -198,17 +196,11 @@ void Agenda::imprimir()
 	}
 }
 
-bool Agenda::orden(Cliente c1, Cliente c2)
+bool orden(Cliente c1, Cliente c2)
 {
-	if (c1.getApellidos() < c1.getApellidos())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return (c1.getApellidos() < c2.getApellidos());
 }
+
 void Agenda::ordenar()
 {
 	listaClientes_.sort(orden);

@@ -26,7 +26,7 @@ void salvar (list <Cliente> clientes)
 	list <Cliente> :: iterator i; //Declaramos el iterador que vamos a utilizar como puntero dentro de la lista
 	for (i=clientes.begin(); i!=clientes.end(); i++)
 	{
-		f << i-> getApellidos() << "," << i-> getNombre() << "," << i-> getDni() << "," << "," << i-> getTelefono() << "," << i-> getDireccionesAsString() << "," << i-> getAnotaciones() << "," << i-> getRedesSocialesAsString() << "," << i-> getNumUsos() << "," << i-> isFavorito() << "\n";
+		f << i-> getApellidos() << "," << i-> getNombre() << "," << i-> getDni() << "," << "," << i-> getTelefono() << "," << i-> getDireccionesAsString(i->getDirecciones()) << "," << i-> getAnotaciones() << "," << i-> getRedesSocialesAsString(i->getRedesSociales()) << "," << i-> getNumUsos() << "," << i-> isFavorito() << "\n";
 	}
 	f.close();
 }
@@ -37,9 +37,7 @@ std :: list<Cliente> restaurar ()
 	list <Cliente> clientes;
 	fstream f;
 	string nombreF = gf.getNombreFichero() + ".txt";
-	string dni, nombre, apellidos, telefono, anotaciones, favorito, numUsos;
-	list <Direccion> direcciones;
-	list <RedSocial> redesSociales;
+	string dni, nombre, apellidos, telefono, anotaciones, favorito, numUsos, direcciones, redesSociales;
 	Direccion d;
 	RedSocial r;
 	Cliente c;
@@ -63,7 +61,10 @@ std :: list<Cliente> restaurar ()
 			c.setApellidos(apellidos);
 			c.setNombre(nombre);
 			c.setTelefono ((long)telefono.c_str());
-			cout <<endl<<"Introducidas en la lista las variables leidas del fichero: "<<apellidos<<", "<<nombre<<", "<<dni", "<<<<endl;//INCOMPLETO
+			c.setAnotaciones(anotaciones);
+			c.setNumUsos((long)numUsos.c_str());
+			c.setFavorito((bool)favorito.c_str());
+			cout <<endl<<"Introducidas en la lista las variables leidas del fichero: "<<apellidos<<", "<<nombre<<", "<<dni<<", "<<telefono<<", "<<anotaciones<<", "<<numUsos<< ", "<<favorito<< ", ";//INCOMPLETO
 			clientes.push_back(c);
 		}
 	}

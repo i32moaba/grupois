@@ -23,8 +23,8 @@ public:
 	void setNombreFichero(const std::string& nombreFichero) {
 		nombreFichero_ = nombreFichero;
 	}
-	void salvar (std::list <Cliente> clientes);
-	std::list <Cliente> restaurar ();
+	virtual void salvar (std::list <Cliente> clientes);
+	virtual std::list <Cliente> restaurar ();
 };
 
 #endif /* GESTORDBFICHERO_H_ */

@@ -6,16 +6,16 @@
  */
 
 #include "Cliente.h"
+
 using namespace std;
-Cliente::Cliente(std::string DNI, std::string n, std::string ap, long t, std::list<Direccion> d, std::string an, std::list<RedSocial> rs, long u, bool f) {
-	dni_ = DNI;
-	nombre_ = n;
-	apellidos_ = ap;
-	telefono_ = t;
-	direcciones_ = d;
-	anotaciones_ = an;
-	redesSociales_ = rs;
-	favorito_ = f;
+
+Cliente::Cliente() {
+	dni_ = "";
+	nombre_ = "";
+	apellidos_ = "";
+	telefono_ = 0;
+	anotaciones_ = "";
+	favorito_ = "";
 	numUsos_ = 0;
 }
 
@@ -26,9 +26,29 @@ Cliente::~Cliente() {
 string Cliente :: getDireccionesAsString (std::list <Direccion> direcciones)
 {
 	list<Direccion>::iterator i;
-	string d;
+	string d, aux1, aux2;
 	for (i=direcciones.begin(); i!=direcciones.end(); i++)
 		{
-			d << i-> direccion.getApellidos() << "." << i-> getNombre() << "," << i-> getDni() << "," << "," << i-> getTelefono() << "," << i-> getDireccionesAsString() << "," << i-> getAnotaciones() << "," << i-> getRedesSocialesAsString() << "," << i-> getNumUsos() << "," << i-> isFavorito() << "\n";
+			stringstream stream;
+			stream << i->numero;
+			aux1 = stream.str();
+			stream << i->cp;
+			aux2 = stream.str();
+			d = i->tipo_calle + "." + i->calle + "." + aux1 + "." + aux2 + "." + i->ciudad + "-";
 		}
+	return d;
 }
+
+string Cliente :: getRedesSocialesAsString (std::list <RedSocial> redesSociales)
+{
+	list<RedSocial>::iterator i;
+	string r;
+	for (i=redesSociales.begin(); i!=redesSociales.end(); i++)
+		{
+			r = i->nombreRed + "." + i->url + "-";
+		}
+	return r;
+}
+
+
+
