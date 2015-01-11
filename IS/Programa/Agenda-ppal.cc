@@ -88,7 +88,6 @@ int main ()
 			std::cout << "Telefono: ";
 			std::cin>> telefono;
 			c.setTelefono(telefono);
-			getchar();
 			std::cout << "¿Cuántas direcciones desea introducir?: ";
 			std::cin>> nDirecciones;
 			getchar ();
@@ -140,7 +139,7 @@ int main ()
 		case 4:
 		{
 			std::cout << "Introduzca los apellidos del cliente a buscar en la base de datos de la agenda: ";
-			std::cin>> apellidos;
+			std::getline(std::cin, apellidos);
 			if (a.buscarCliente(apellidos)!= true)
 			{
 				std::cout<<"El cliente no se halla en la base de datos."<<std::endl;
@@ -153,7 +152,7 @@ int main ()
 		case 5:
 		{
 			std::cout << "Introduzca los apellidos del cliente a borrar de la base de datos de la agenda: ";
-			std::cin>> apellidos;
+			std::getline(std::cin, apellidos);
 			if (a.borrarCliente(apellidos)!= true)
 			{
 				std::cout<<"El cliente no se halla en la base de datos."<<std::endl;
@@ -167,7 +166,7 @@ int main ()
 		case 6:
 		{
 			std::cout << "Introduzca los apellidos del cliente a modificar en la base de datos de la agenda: ";
-			std::cin>> apellidos;
+			std::getline(std::cin, apellidos);
 			if (a.modificarCliente(apellidos)!= true)
 			{
 				std::cout<<"El cliente no se halla en la base de datos."<<std::endl;

@@ -132,11 +132,13 @@ bool Agenda::modificarCliente (std::string& apellidos)
 						std::cout << "\n\tIntroduzca el código postal: ";
 						std::cin >> (*ite).cp;
 						std::cout << "\n\tIntroduzca la ciudad: ";
+						getchar();
 						std::getline (std::cin, (*ite).ciudad);
 						std::cout << "\n\tIntroduzca el tipo de calle: ";
 						std::getline (std::cin, (*ite).tipo_calle);
 					}
 					std::cout << "\n";
+					(*it).setDirecciones(auxd);
 				}
 				break;
 			}
@@ -157,6 +159,7 @@ bool Agenda::modificarCliente (std::string& apellidos)
 						std::getline (std::cin, (*ito).url);
 					}
 					std::cout << "\n";
+					(*it).setRedesSociales(auxrs);
 				}
 				break;
 			}
@@ -184,6 +187,7 @@ bool Agenda::modificarCliente (std::string& apellidos)
 					std::cout << "NO FAVORITO.";
 				}
 				std :: cout << "\n\tIntroduzca F para que sea favorito, N para que sea no favorito o - para que se quede como está: ";
+				std::getline(std::cin, aux);
 				if (aux == "F")
 				{
 					fav = true;

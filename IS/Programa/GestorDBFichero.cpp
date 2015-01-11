@@ -23,6 +23,7 @@ void GestorDBFichero :: salvar (list <Cliente> clientes)
 	GestorDBFichero gf;
 	fstream f;
 	string nombreF = gf.getNombreFichero() + ".txt";
+	f.open(nombreF.c_str());
 	list <Cliente> :: iterator i; //Declaramos el iterador que vamos a utilizar como puntero dentro de la lista
 	for (i=clientes.begin(); i!=clientes.end(); i++)
 	{
