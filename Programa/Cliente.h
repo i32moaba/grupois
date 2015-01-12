@@ -13,6 +13,9 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <string.h>
+#include <cstdlib>
+#include <stdlib.h>
 
 struct Direccion
 {
@@ -129,6 +132,11 @@ public:
 		}
 	std :: string getDireccionesAsString (std::list<Direccion> direcciones);
 	std :: string getRedesSocialesAsString (std::list<RedSocial> redesSociales);
+	std :: list<Direccion> getDireccionesFromString (std :: string direcciones);
+	std :: list<RedSocial> getRedesSocialesFromString (std :: string direcciones);
+	void imprimeDirecciones (std :: list <Direccion> direcciones);
+	void imprimeRedesSociales (std :: list <RedSocial> redesSociales);
+
 };
 
 #endif /* CLIENTE_H_ */

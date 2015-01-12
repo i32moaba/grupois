@@ -4,7 +4,6 @@
  *  Created on: 04/12/2014
  *      Author: i32roraj
  */
-
 #include "Cliente.h"
 #include "Agenda.h"
 #include "GestorDBInterfaz.h"
@@ -53,6 +52,7 @@ int main ()
 	do
 	{
 		instruccion = menu ();
+		getchar ();
 		switch (instruccion)
 		{
 		case 0:
@@ -77,15 +77,14 @@ int main ()
 		{
 			std::cout << "\n\tIntroduzca los datos correspondientes para el cliente a insertar (el campo de apellidos es obligatorio).\n"
 					"Apellidos: ";
-			std::cin>> apellidos;
+			std::getline(std::cin, apellidos);
 			c.setApellidos(apellidos);
 			std::cout << "Nombre: ";
-			std::cin>> nombre;
+			std::getline(std::cin, nombre);
 			c.setNombre(nombre);
 			std::cout << "DNI: ";
-			std::cin>> dni;
+			std::getline(std::cin, dni);
 			c.setDni(dni);
-			getchar ();
 			std::cout << "Telefono: ";
 			std::cin>> telefono;
 			c.setTelefono(telefono);
@@ -95,7 +94,7 @@ int main ()
 			getchar ();
 			for (int i=0; i<nDirecciones; i++)
 			{
-				std::cout << "Direccion nº:"<<i<<endl<< "\tNombre de la calle: "<<endl;
+				std::cout << "Direccion nº:"<<i+1<<endl<< "\tNombre de la calle: "<<endl;
 				std::getline (std::cin, d.calle);
 				std::cout << "Numero: ";
 				std::cin>> d.numero;
@@ -114,37 +113,53 @@ int main ()
 			getchar ();
 			for (int i=0; i<nRedes; i++)
 			{
-				std::cout << "Red Social nº:"<<i<<endl<< "\tNombre de la red social: "<<endl;
+				std::cout << "Red Social nº:"<<i+1<<endl<< "\tNombre de la red social: "<<endl;
 				std::getline (std::cin, r.nombreRed);
 				std::cout << "URL de la red: ";
 				std::getline (std::cin, r.url);
 				redesSociales.push_back(r);
 			}
 			c.setRedesSociales(redesSociales);
-			std::cout << "¿Quisiera hacer alguna anotacion acerca del cliente actual?: ";
-			std::cin>> anotaciones;
+			std::cout << "¿Quisiera hacer alguna anotacion acerca del cliente actual? (Si no es el caso, dejar en blanco): ";
+			std::getline(std::cin, anotaciones);
 			c.setAnotaciones(anotaciones);
+			std::cout << "¿Quiere hacer a este contacto favorito? Escriba 0 (no) o 1 (sí): ";
+			int opc;
+			std::cin >> opc;
+			while (opc<0 || opc>1)
+			{
+				std::cout << "Número introducido incorrecto. Por favor, escriba 0 (no) o 1 (sí): ";
+				std::cin >> opc;
+			}
+
+			if (opc)
+			{
+				c.setFavorito(true);
+			}
+			else
+			{
+				c.setFavorito(false);
+			}
 			a.insertarCliente (c);
 			break;
 		}
 		case 4:
 		{
 			std::cout << "Introduzca los apellidos del cliente a buscar en la base de datos de la agenda: ";
-			std::cin>> apellidos;
+			std::getline (std::cin, apellidos);
 			if (a.buscarCliente(apellidos)!= true)
 			{
 				std::cout<<"El cliente no se halla en la base de datos."<<std::endl;
 			}
 			else
 			{
-				std::cout<<"Cliente encontrado."<<std::endl;
 			}
 			break;
 		}
 		case 5:
 		{
 			std::cout << "Introduzca los apellidos del cliente a borrar de la base de datos de la agenda: ";
-			std::cin>> apellidos;
+			std::getline (std::cin, apellidos);
 			if (a.borrarCliente(apellidos)!= true)
 			{
 				std::cout<<"El cliente no se halla en la base de datos."<<std::endl;
@@ -158,7 +173,7 @@ int main ()
 		case 6:
 		{
 			std::cout << "Introduzca los apellidos del cliente a modificar en la base de datos de la agenda: ";
-			std::cin>> apellidos;
+			std::getline (std::cin, apellidos);
 			if (a.modificarCliente(apellidos)!= true)
 			{
 				std::cout<<"El cliente no se halla en la base de datos."<<std::endl;
@@ -177,11 +192,7 @@ int main ()
 		}
 		case 8:
 		{
-			int lenguaje;
-			std::cout<<"\nSeleccione como desea guardar su base de datos: ";
-			std::cin>>lenguaje;
-			g->restaurar();
-			a.setLista(g->getClientes());
+			a.setLista(g->restaurar());
 			std::cout<<"\nBase de datos restaurada satisfactoriamente."<<std::endl;
 			break;
 		}
@@ -194,4 +205,3 @@ int main ()
 	}
 	while (instruccion != -1);
 }
-

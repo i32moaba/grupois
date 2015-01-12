@@ -30,7 +30,13 @@ bool Agenda::buscarCliente (std::string& apellidos)
 		{
 			if ((*it).getApellidos() == apellidos)
 			{
-				std::cout << "\n\nDNI: " << (*it).getDni() << ",\n\tNombre completo: " << (*it).getApellidos() << ", " << (*it).getNombre();
+				std::cout << "\n\n\tDNI: " << (*it).getDni() << ",\n\tNombre completo: " << (*it).getApellidos() << ", " << (*it).getNombre() << "\n\tObservaciones:" << (*it).getAnotaciones()<<endl;
+				it->imprimeDirecciones(it->getDirecciones());
+				it->imprimeRedesSociales(it->getRedesSociales());
+				if ((*it).isFavorito() == true)
+				{
+					cout << "\n\n\t\t----FAVORITO----";
+				}
 				(*it).usado();
 				control = true;
 			}
@@ -51,110 +57,159 @@ bool Agenda::modificarCliente (std::string& apellidos)
 	bool fav;
 	std::string aux;
 	long auxN;
+	int opc;
 	for (std::list<Cliente>::iterator it=listaClientes_.begin(); it != listaClientes_.end(); it++)
 	{
 		if ((*it).getApellidos() == apellidos)
 		{
 			control = true;
-			//CAMBIO DE DNI
-			std::cout << "\n\nCliente encontrado.\n\nDNI actual: " << (*it).getDni() << " (para no modificarlo introduzca un guión -).\n\tIntroduzca - o nuevo DNI: ";
-			std::getline (std::cin, aux);
-			if (aux != "-")
+			cout <<"Introduzca el campo que desea modificar:"
+					"\n1. DNI\n"
+					"2. Apellidos\n"
+					"3. Nombre\n"
+					"4. Teléfono\n"
+					"5. Direcciones\n"
+					"6. Redes Sociales\n"
+					"7. Anotaciones\n"
+					"8. Favorito o No favorito\n";
+			cin >> opc;
+			getchar ();
+			switch (opc)
 			{
-				(*it).setDni(aux);
+			//CAMBIO DE DNI
+			case 1:
+			{
+				std::cout << "\n\nCliente encontrado.\n\nDNI actual: " << (*it).getDni() << " (para no modificarlo introduzca un guión -).\n\tIntroduzca - o nuevo DNI: ";
+				std::getline (std::cin, aux);
+				if (aux != "-")
+				{
+					(*it).setDni(aux);
+				}
+				break;
 			}
 
 			//CAMBIO DE APELLIDOS Y NOMBRE
-			std::cout << "\n\nNombre completo actual: " << (*it).getApellidos() << ", " << (*it).getNombre() << "(para no modificarlo introduzca un guión -).\n\tIntroduzca - o nuevos apellidos: ";
-			std::getline (std::cin, aux);
-			if (aux != "-")
+			case 2:
 			{
-				(*it).setApellidos(aux);
+				std::cout << "\n\nNombre completo actual: " << (*it).getApellidos() << ", " << (*it).getNombre() << "(para no modificarlo introduzca un guión -).\n\tIntroduzca - o nuevos apellidos: ";
+				std::getline (std::cin, aux);
+				if (aux != "-")
+				{
+					(*it).setApellidos(aux);
+				}
+				break;
 			}
-			std::cout << "\n\tIntroduzca - o nuevo nombre: ";
-			std::getline (std::cin, aux);
-			if (aux != "-")
+			case 3:
 			{
-				(*it).setNombre(aux);
+				std::cout << "\n\tIntroduzca - o nuevo nombre: ";
+				std::getline (std::cin, aux);
+				if (aux != "-")
+				{
+					(*it).setNombre(aux);
+				}
+				break;
 			}
-
 			//CAMBIO DE TELÉFONO
-			std::cout << "\n\nTeléfono actual: " << (*it).getTelefono() << " (para no modificarlo introduzca 0).\n\tIntroduzca 0 o nuevo teléfono: ";
-			std::cin >> auxN;
-			if (auxN != 0)
+			case 4:
 			{
-				(*it).setTelefono(auxN);
+				std::cout << "\n\nTeléfono actual: " << (*it).getTelefono() << " (para no modificarlo introduzca 0).\n\tIntroduzca 0 o nuevo teléfono: ";
+				std::cin >> auxN;
+				if (auxN != 0)
+				{
+					(*it).setTelefono(auxN);
+				}
+				break;
 			}
-
 			//CAMBIO DE DIRECCIONES
-			std::cout << "\n\nDirecciones actuales: ";
-			std::list<Direccion> auxd = (*it).getDirecciones();
-			for (std::list<Direccion>::iterator ite = auxd.begin(); ite != auxd.end(); ite++)
+			case 5:
 			{
-				cout << "\n" << (*ite).tipo_calle << " " << (*ite).calle << ", " << (*ite).numero << ", " << (*ite).cp << ", " << (*ite).ciudad << ".";
-				std::cout << "\n\tIntroduzca - si no quiere cambiar la dirección, o el nombre de la nueva calle: ";
-				std::getline (std::cin, aux);
-				if (aux != "-")
+				std::cout << "\n\nDirecciones actuales: ";
+				std::list<Direccion> auxd = (*it).getDirecciones();
+				it->imprimeDirecciones(it->getDirecciones());
+				for (std::list<Direccion>::iterator ite = auxd.begin(); ite != auxd.end(); ite++)
 				{
-					(*ite).calle = aux;
-					std::cout << "\n\tIntroduzca el número: ";
-					std::cin >> (*ite).numero;
-					std::cout << "\n\tIntroduzca el código postal: ";
-					std::cin >> (*ite).cp;
-					std::cout << "\n\tIntroduzca la ciudad: ";
-					std::getline (std::cin, (*ite).ciudad);
-					std::cout << "\n\tIntroduzca el tipo de calle: ";
-					std::getline (std::cin, (*ite).tipo_calle);
+					cout << "\n" << (*ite).tipo_calle << " " << (*ite).calle << ", " << (*ite).numero << ", " << (*ite).cp << ", " << (*ite).ciudad << ".";
+					std::cout << "\n\tIntroduzca - si no quiere cambiar la dirección, o el nombre de la nueva calle: ";
+					std::getline (std::cin, aux);
+					if (aux != "-")
+					{
+						(*ite).calle = aux;
+						std::cout << "\n\tIntroduzca el número: ";
+						std::cin >> (*ite).numero;
+						std::cout << "\n\tIntroduzca el código postal: ";
+						std::cin >> (*ite).cp;
+						getchar ();
+						std::cout << "\n\tIntroduzca la ciudad: ";
+						std::getline (std::cin, (*ite).ciudad);
+						std::cout << "\n\tIntroduzca el tipo de calle: ";
+						std::getline (std::cin, (*ite).tipo_calle);
+					}
+					std::cout << "\n";
+					(*it).setDirecciones (auxd);
 				}
-				std::cout << "\n";
+				break;
 			}
-
 			//CAMBIO DE REDES SOCIALES
-			std::cout << "\n\nRedes sociales actuales: ";
-			std::list<RedSocial> auxrs = (*it).getRedesSociales();
-			for (std::list<RedSocial>::iterator ito = auxrs.begin(); ito != auxrs.end(); ito++)
+			case 6:
 			{
-				cout << "\n" << (*ito).nombreRed << ": " << (*ito).url;
-				std::cout << "\n\tIntroduzca - si no quiere cambiar la cuenta, o el nombre de la nueva red social: ";
-				std::getline (std::cin, aux);
-				if (aux != "-")
+				std::cout << "\n\nRedes sociales actuales: ";
+				std::list<RedSocial> auxrs = (*it).getRedesSociales();
+				it->imprimeRedesSociales(it->getRedesSociales());
+				for (std::list<RedSocial>::iterator ito = auxrs.begin(); ito != auxrs.end(); ito++)
 				{
-					(*ito).nombreRed = aux;
-					std::cout << "\n\tIntroduzca la URL de la cuenta del cliente en esa red social: ";
-					std::getline (std::cin, (*ito).url);
+					cout << "\n" << (*ito).nombreRed << ": " << (*ito).url;
+					std::cout << "\n\tIntroduzca - si no quiere cambiar la cuenta, o el nombre de la nueva red social: ";
+					std::getline (std::cin, aux);
+					if (aux != "-")
+					{
+						(*ito).nombreRed = aux;
+						std::cout << "\n\tIntroduzca la URL de la cuenta del cliente en esa red social: ";
+						std::getline (std::cin, (*ito).url);
+					}
+					std::cout << "\n";
+					(*it).setRedesSociales (auxrs);
 				}
-				std::cout << "\n";
+				break;
 			}
 			//CAMBIO DE ANOTACIONES
-			cout << "\n\tAnotaciones actuales:\n" << (*it).getAnotaciones () << "\n\tIntroduzca - o las nuevas anotaciones: ";
-			std::getline (std::cin, aux);
-			if (aux != "-")
+			case 7:
 			{
-				(*it).setAnotaciones(aux);
+				cout << "\n\tAnotaciones actuales:\n" << (*it).getAnotaciones () << "\n\tIntroduzca - o las nuevas anotaciones: ";
+				std::getline (std::cin, aux);
+				if (aux != "-")
+				{
+					(*it).setAnotaciones(aux);
+				}
+				break;
 			}
 			//CAMBIO DE FAVORITO
-			std::cout << "\n\tEstado de favorito actual: ";
-			if ((*it).isFavorito())
+			case 8:
 			{
-				std::cout << "FAVORITO.";
-			}
-				else
-			{
-				std::cout << "NO FAVORITO.";
-			}
-			std :: cout << "\n\tIntroduzca F para que sea favorito, N para que sea no favorito o - para que se quede como está: ";
-			if (aux == "F")
-			{
-				fav = true;
-				(*it).setFavorito (fav);
-			}
-			if (aux == "N")
-			{
-				fav = false;
-				(*it).setFavorito (fav);
+				std::cout << "\n\tEstado de favorito actual: ";
+				if ((*it).isFavorito())
+				{
+					std::cout << "FAVORITO.";
+				}
+					else
+				{
+					std::cout << "NO FAVORITO.";
+				}
+				std :: cout << "\n\tIntroduzca F para que sea favorito, N para que sea no favorito o - para que se quede como está: ";
+				getline (std::cin, aux);
+				if (aux == "F")
+				{
+					fav = true;
+					(*it).setFavorito (fav);
+				}
+				if (aux == "N")
+				{
+					fav = false;
+					(*it).setFavorito (fav);
+				}
 			}
 			}
 		}
+	}
 	return (control);
 }
 

@@ -21,25 +21,32 @@ GestorDBFichero::~GestorDBFichero() {
 void GestorDBFichero :: salvar (list <Cliente> clientes)
 {
 	GestorDBFichero gf;
-	fstream f;
+	ofstream f;
+	string nombreC;
+	cout <<"\nIntroduzca el nombre que desea dar a la copia de seguridad: ";
+	getline (std::cin, nombreC);
+	gf.setNombreFichero(nombreC);
 	string nombreF = gf.getNombreFichero() + ".txt";
+	f.open (nombreF.c_str());
 	list <Cliente> :: iterator i; //Declaramos el iterador que vamos a utilizar como puntero dentro de la lista
 	for (i=clientes.begin(); i!=clientes.end(); i++)
 	{
-		f << i-> getApellidos() << "," << i-> getNombre() << "," << i-> getDni() << "," << "," << i-> getTelefono() << "," << i-> getDireccionesAsString(i->getDirecciones()) << "," << i-> getAnotaciones() << "," << i-> getRedesSocialesAsString(i->getRedesSociales()) << "," << i-> getNumUsos() << "," << i-> isFavorito() << "\n";
+		f << i-> getApellidos() << "," << i-> getNombre() << "," << i-> getDni() << "," << i-> getTelefono() << "," << i-> getDireccionesAsString(i->getDirecciones()) << "," << i-> getAnotaciones() << "," << i-> getRedesSocialesAsString(i->getRedesSociales()) << "," << i-> getNumUsos() << "," << i-> isFavorito() << "\n";
 	}
 	f.close();
 }
 
-void GestorDBFichero :: restaurar ()
+list <Cliente> GestorDBFichero :: restaurar ()
 {
 	GestorDBFichero gf;
 	list <Cliente> clientes;
-	fstream f;
+	ifstream f;
+	string nombreC;
+	cout <<"\nIntroduzca el nombre de la copia de seguridad que desea restaurar: ";
+	getline (std::cin, nombreC);
+	gf.setNombreFichero(nombreC);
 	string nombreF = gf.getNombreFichero() + ".txt";
 	string dni, nombre, apellidos, telefono, anotaciones, favorito, numUsos, direcciones, redesSociales;
-	Direccion d;
-	RedSocial r;
 	Cliente c;
 	f.open(nombreF.c_str());
 	if (!f)
@@ -57,16 +64,21 @@ void GestorDBFichero :: restaurar ()
 			getline (f, anotaciones, ',');
 			getline (f, redesSociales, ',');
 			getline (f, numUsos, ',');
-			getline (f, favorito, ',');
+			getline (f, favorito, '\n');
 			c.setApellidos(apellidos);
 			c.setNombre(nombre);
-			c.setTelefono ((long)telefono.c_str());
+			c.setTelefono (atol(telefono.c_str()));
 			c.setAnotaciones(anotaciones);
-			c.setNumUsos((long)numUsos.c_str());
+			c.setNumUsos(atol(numUsos.c_str()));
 			c.setFavorito((bool)favorito.c_str());
-			cout <<endl<<"Introducidas en la lista las variables leidas del fichero: "<<apellidos<<", "<<nombre<<", "<<dni<<", "<<telefono<<", "<<anotaciones<<", "<<numUsos<< ", "<<favorito<< ", ";//INCOMPLETO
-			gf.setClientes(c);
+			c.setDirecciones(c.getDireccionesFromString(direcciones));
+			c.setRedesSociales(c.getRedesSocialesFromString(redesSociales));
+			cout <<endl<<"Introducidas en la lista las variables leidas del fichero: "<<apellidos<<", "<<nombre<<", "<<dni<<", "<<telefono<<", "<<anotaciones<<", "<<numUsos<< ", "<<favorito<< "\n";
+			c.imprimeDirecciones(c.getDirecciones());
+			c.imprimeRedesSociales(c.getRedesSociales());
+			clientes.push_back(c);
 		}
 	}
 	f.close();
+	return (clientes);
 }

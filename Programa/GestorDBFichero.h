@@ -24,17 +24,17 @@ public:
 	void setNombreFichero(const std::string& nombreFichero) {
 		nombreFichero_ = nombreFichero;
 	}
-	const std::list<Cliente>& getClientes() const {
-			return clientes_;
-	}
-	void setClientes(Cliente c)
-	{
-		clientes_.push_back(c);
-	}
+
 	void salvar (std::list <Cliente> clientes);
-	void restaurar ();
+	virtual std::list<Cliente> restaurar ();
 
+	const std::list<Cliente>& getClientes() const {
+		return clientes_;
+	}
 
+	void setClientes(const std::list<Cliente>& clientes) {
+		clientes_ = clientes;
+	}
 };
 
 #endif /* GESTORDBFICHERO_H_ */
