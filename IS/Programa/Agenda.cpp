@@ -30,7 +30,13 @@ bool Agenda::buscarCliente (std::string& apellidos)
 		{
 			if ((*it).getApellidos() == apellidos)
 			{
-				std::cout << "\n\nDNI: " << (*it).getDni() << ",\n\tNombre completo: " << (*it).getApellidos() << ", " << (*it).getNombre();
+				std::cout << "\n\n\tDNI: " << (*it).getDni() << ",\n\tNombre completo: " << (*it).getApellidos() << ", " << (*it).getNombre() << "\n\tObservaciones:" << (*it).getAnotaciones()<<endl;
+				it->imprimeDirecciones(it->getDirecciones());
+				it->imprimeRedesSociales(it->getRedesSociales());
+				if ((*it).isFavorito() == true)
+				{
+					cout << "\n\n\t\t----FAVORITO----";
+				}
 				(*it).usado();
 				control = true;
 			}
@@ -58,14 +64,14 @@ bool Agenda::modificarCliente (std::string& apellidos)
 		{
 			control = true;
 			cout <<"Introduzca el campo que desea modificar:"
-					"1. DNI"
-					"2. Nombre"
-					"3. Apellidos"
-					"4. Teléfono"
-					"5. Direcciones"
-					"6. Redes Sociales"
-					"7. Anotaciones"
-					"8. Favorito o No favorito";
+					"\n1. DNI\n"
+					"2. Apellidos\n"
+					"3. Nombre\n"
+					"4. Teléfono\n"
+					"5. Direcciones\n"
+					"6. Redes Sociales\n"
+					"7. Anotaciones\n"
+					"8. Favorito o No favorito\n";
 			cin >> opc;
 			getchar ();
 			switch (opc)
@@ -119,6 +125,7 @@ bool Agenda::modificarCliente (std::string& apellidos)
 			{
 				std::cout << "\n\nDirecciones actuales: ";
 				std::list<Direccion> auxd = (*it).getDirecciones();
+				it->imprimeDirecciones(it->getDirecciones());
 				for (std::list<Direccion>::iterator ite = auxd.begin(); ite != auxd.end(); ite++)
 				{
 					cout << "\n" << (*ite).tipo_calle << " " << (*ite).calle << ", " << (*ite).numero << ", " << (*ite).cp << ", " << (*ite).ciudad << ".";
@@ -131,12 +138,14 @@ bool Agenda::modificarCliente (std::string& apellidos)
 						std::cin >> (*ite).numero;
 						std::cout << "\n\tIntroduzca el código postal: ";
 						std::cin >> (*ite).cp;
+						getchar ();
 						std::cout << "\n\tIntroduzca la ciudad: ";
 						std::getline (std::cin, (*ite).ciudad);
 						std::cout << "\n\tIntroduzca el tipo de calle: ";
 						std::getline (std::cin, (*ite).tipo_calle);
 					}
 					std::cout << "\n";
+					(*it).setDirecciones (auxd);
 				}
 				break;
 			}
@@ -145,6 +154,7 @@ bool Agenda::modificarCliente (std::string& apellidos)
 			{
 				std::cout << "\n\nRedes sociales actuales: ";
 				std::list<RedSocial> auxrs = (*it).getRedesSociales();
+				it->imprimeRedesSociales(it->getRedesSociales());
 				for (std::list<RedSocial>::iterator ito = auxrs.begin(); ito != auxrs.end(); ito++)
 				{
 					cout << "\n" << (*ito).nombreRed << ": " << (*ito).url;
@@ -157,6 +167,7 @@ bool Agenda::modificarCliente (std::string& apellidos)
 						std::getline (std::cin, (*ito).url);
 					}
 					std::cout << "\n";
+					(*it).setRedesSociales (auxrs);
 				}
 				break;
 			}
@@ -184,6 +195,7 @@ bool Agenda::modificarCliente (std::string& apellidos)
 					std::cout << "NO FAVORITO.";
 				}
 				std :: cout << "\n\tIntroduzca F para que sea favorito, N para que sea no favorito o - para que se quede como está: ";
+				getline (std::cin, aux);
 				if (aux == "F")
 				{
 					fav = true;

@@ -14,7 +14,7 @@ public:
 	GestorDBInterfaz();
 	virtual ~GestorDBInterfaz();
 	virtual void salvar (std::list <Cliente> clientes){};
-	virtual void restaurar () {};
+	virtual std::list<Cliente> restaurar () = 0;
 };
 
 #endif /* GESTORDBINTERFAZ_H_ */

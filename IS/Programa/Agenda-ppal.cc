@@ -52,6 +52,7 @@ int main ()
 	do
 	{
 		instruccion = menu ();
+		getchar ();
 		switch (instruccion)
 		{
 		case 0:
@@ -74,7 +75,6 @@ int main ()
 		}
 		case 3:
 		{
-			getchar ();
 			std::cout << "\n\tIntroduzca los datos correspondientes para el cliente a insertar (el campo de apellidos es obligatorio).\n"
 					"Apellidos: ";
 			std::getline(std::cin, apellidos);
@@ -120,9 +120,18 @@ int main ()
 				redesSociales.push_back(r);
 			}
 			c.setRedesSociales(redesSociales);
+			std::cout << "¿Quisiera hacer alguna anotacion acerca del cliente actual? (Si no es el caso, dejar en blanco): ";
+			std::getline(std::cin, anotaciones);
+			c.setAnotaciones(anotaciones);
 			std::cout << "¿Quiere hacer a este contacto favorito? Escriba 0 (no) o 1 (sí): ";
 			int opc;
 			std::cin >> opc;
+			while (opc<0 || opc>1)
+			{
+				std::cout << "Número introducido incorrecto. Por favor, escriba 0 (no) o 1 (sí): ";
+				std::cin >> opc;
+			}
+
 			if (opc)
 			{
 				c.setFavorito(true);
@@ -131,16 +140,13 @@ int main ()
 			{
 				c.setFavorito(false);
 			}
-			std::cout << "¿Quisiera hacer alguna anotacion acerca del cliente actual?: ";
-			std::getline(std::cin, anotaciones);
-			c.setAnotaciones(anotaciones);
 			a.insertarCliente (c);
 			break;
 		}
 		case 4:
 		{
 			std::cout << "Introduzca los apellidos del cliente a buscar en la base de datos de la agenda: ";
-			std::cin>> apellidos;
+			std::getline (std::cin, apellidos);
 			if (a.buscarCliente(apellidos)!= true)
 			{
 				std::cout<<"El cliente no se halla en la base de datos."<<std::endl;
@@ -153,7 +159,7 @@ int main ()
 		case 5:
 		{
 			std::cout << "Introduzca los apellidos del cliente a borrar de la base de datos de la agenda: ";
-			std::cin>> apellidos;
+			std::getline (std::cin, apellidos);
 			if (a.borrarCliente(apellidos)!= true)
 			{
 				std::cout<<"El cliente no se halla en la base de datos."<<std::endl;
@@ -167,7 +173,7 @@ int main ()
 		case 6:
 		{
 			std::cout << "Introduzca los apellidos del cliente a modificar en la base de datos de la agenda: ";
-			std::cin>> apellidos;
+			std::getline (std::cin, apellidos);
 			if (a.modificarCliente(apellidos)!= true)
 			{
 				std::cout<<"El cliente no se halla en la base de datos."<<std::endl;
@@ -186,8 +192,7 @@ int main ()
 		}
 		case 8:
 		{
-			g->restaurar();
-			a.setLista(g->getClientes());
+			a.setLista(g->restaurar());
 			std::cout<<"\nBase de datos restaurada satisfactoriamente."<<std::endl;
 			break;
 		}
